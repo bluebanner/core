@@ -1,0 +1,20 @@
+{
+    "name": "bluebanner/core",
+    "description": "",
+    "authors": [
+        {
+            "name": "Mars",
+            "email": "mars@thousandshores.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "illuminate/support": "4.0.x"
+    },
+    "autoload": {
+        "psr-0": {
+            "Bluebanner\\Core": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}
