@@ -10,6 +10,13 @@ class CoreServiceProvider extends ServiceProvider {
 	 * @var bool
 	 */
 	protected $defer = false;
+	
+	public function boot()
+	{
+		$this->package('bluebanner/core');
+		
+		$app = $this->app;
+	}
 
 	/**
 	 * Register the service provider.
@@ -18,7 +25,21 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app['core'] = $this->app->share(function($app) {
+			return new Core;
+		});
+		
+		$this->app['item'] = $this->app->share(function($app) {
+			return new Item;
+		});
+		
+		$this->app['inventory'] = $this->app->share(function($app) {
+			return new Inventory;
+		});
+		
+		$this->app['storage'] = $this->app->share(function($app) {
+			return new Storage;
+		});
 	}
 
 	/**
@@ -28,7 +49,7 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return array('auth', 'item', 'inventory', 'storage');
 	}
 
 }

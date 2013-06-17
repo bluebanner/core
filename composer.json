@@ -1,6 +1,8 @@
 {
     "name": "bluebanner/core",
-    "description": "",
+    "description": "including Auth, Item, Inventory, Storage Services",
+    "keywords": ["bluebanner", "core", "laravel"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Mars",
@@ -12,6 +14,10 @@
         "illuminate/support": "4.0.x"
     },
     "autoload": {
+        "classmap": [
+            "src/migrations",
+            "src/models"
+        ],
         "psr-0": {
             "Bluebanner\\Core": "src/"
         }
