@@ -11,6 +11,22 @@ class CreateStorageTable extends Migration {
 	 */
 	public function up()
 	{
+		
+		Schema::create('core_storage_warehouse', function($table) {
+			$table->engine = 'InnoDB';
+			$table->increments('id');
+			$table->timestamps();
+			$table->softDeletes();
+			
+			$table->string('name', 20);
+			$table->boolean('status')->default(0);
+			$table->string('address', 255);
+			$table->string('telephone', 20);
+			$table->string('contact', 20);
+			$table->string('country', 20);
+		});
+		
+		
 		Schema::create('core_storage_definition', function($table) {
 			$table->engine = 'InnoDB';
 			$table->increments('id');
@@ -64,6 +80,7 @@ class CreateStorageTable extends Migration {
 		Schema::drop('core_storage_container_log');
 		Schema::drop('core_storage_container');
 		Schema::drop('core_storage_definition');
+		Schema::drop('core_storage_warehouse');
 	}
 
 }

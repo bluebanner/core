@@ -5,13 +5,17 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Mars",
+            "name": "Mars Zhou",
             "email": "mars@thousandshores.com"
         }
     ],
     "require": {
         "php": ">=5.3.0",
-        "illuminate/support": "4.0.x"
+        "illuminate/support": "4.0.x",
+        "illuminate/database": "4.0.x"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.7.2"
     },
     "autoload": {
         "classmap": [
