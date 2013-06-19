@@ -32,9 +32,7 @@ class CreatePlatformTable extends Migration {
 			$table->string('abbreviation', 10);
 			$table->string('service_email', 255)->nullable();
 			$table->string('bill_email', 255)->nullable();
-			$table->string('api_account', 255)->nullable();
-			$table->string('api_access_key', 255)->nullable();
-			$table->text('api_secret_key')->nullable();
+			$table->text('api_configuration')->nullable();
 			
 			$table->foreign('platform_id')->references('id')->on('core_platform_master');
 		});

@@ -2,8 +2,8 @@
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Item extends Eloquent
+class Platform extends Eloquent
 {
 	
-	protected $table = 'core_item_master';
+	protected $table = 'core_platform_master';
 }

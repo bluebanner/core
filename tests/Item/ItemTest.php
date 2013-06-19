@@ -17,6 +17,6 @@ class ItemTest extends PHPUnit_Framework_TestCase
 	
 	protected function getItem()
 	{
-		return new Bluebanner\Core\Item;
+		return new Bluebanner\Core\Model\Item;
 	}
 }
