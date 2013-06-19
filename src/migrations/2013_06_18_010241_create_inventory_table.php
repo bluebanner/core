@@ -37,6 +37,8 @@ class CreateInventoryTable extends Migration {
 			$table->foreign('warehouse_id')->references('id')->on('core_storage_warehouse');
 			$table->foreign('item_id')->references('id')->on('core_item_master');
 			$table->foreign('account_id')->references('id')->on('core_platform_account');
+			
+			// TODO: add when IO is OK
 			// $table->foreign('restock_id')->references('id')->on();
 		});
 		
@@ -77,7 +79,7 @@ class CreateInventoryTable extends Migration {
 			$table->foreign('warehouse_id')->references('id')->on('core_storage_warehouse');
 			$table->foreign('inventory_id')->references('id')->on('core_inventory_master');
 			$table->foreign('item_id')->references('id')->on('core_item_master');
-			$table->foreign('agent')->references('id')->on('core_platform_account');
+			$table->foreign('agent')->references('id')->on('core_platform_user');
 		});
 		
 		Schema::create('core_inventory_allocate', function($table) {
@@ -102,6 +104,8 @@ class CreateInventoryTable extends Migration {
 			$table->foreign('to_account_id')->references('id')->on('core_platform_account');
 			$table->foreign('from_invd_id')->references('id')->on('core_inventory_master');
 			$table->foreign('to_invd_id')->references('id')->on('core_inventory_master');
+			$table->foreign('sender')->references('id')->on('core_platform_user');
+			$table->foreign('receiver')->references('id')->on('core_platform_user');
 		});
 	}
 

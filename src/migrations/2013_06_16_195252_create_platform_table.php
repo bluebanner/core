@@ -38,6 +38,31 @@ class CreatePlatformTable extends Migration {
 			
 			$table->foreign('platform_id')->references('id')->on('core_platform_master');
 		});
+		
+		Schema::create('core_platform_role', function($table) {
+			$table->engine = 'InnoDB';
+			$table->increments('id');
+			$table->timestamps();
+			$table->softDeletes();
+			
+			$table->string('name', 50);
+		});
+		
+		Schema::create('core_platform_user', function($table) {
+			$table->engine = 'InnoDB';
+			$table->increments('id');
+			$table->timestamps();
+			$table->softDeletes();
+			
+			$table->string('username', 50)->unique();
+			$table->string('password', 60);
+			$table->string('email', 100);
+			$table->integer('role_id')->unsigned();
+			$table->string('firstname', 20)->nullable();
+			$table->string('lastname', 20)->nullable();
+			
+			$table->foreign('role_id')->references('id')->on('core_platform_role');
+		});
 	}
 
 	/**
@@ -48,6 +73,8 @@ class CreatePlatformTable extends Migration {
 	public function down()
 	{
 		
+		Schema::drop('core_platform_user');
+		Schema::drop('core_platform_role');
 		Schema::drop('core_platform_account');
 		Schema::drop('core_platform_master');
 		

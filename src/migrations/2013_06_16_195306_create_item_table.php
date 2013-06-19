@@ -63,6 +63,22 @@ class CreateItemTable extends Migration {
 			
 			$table->foreign('item_id')->references('id')->on('core_item_master');
 		});
+		
+		Schema::create('core_item_bom', function($table) {
+			$table->engine = 'InnoDB';
+			$table->increments('id');
+			$table->timestamps();
+			$table->softDeletes();
+			
+			$table->integer('parent_id')->unsigned();
+			$table->integer('child_id')->unsigned();
+			$table->integer('agent')->unsigned();
+			$table->text('note')->nullable();
+			
+			$table->foreign('parent_id')->references('id')->on('core_item_master');
+			$table->foreign('child_id')->references('id')->on('core_item_master');
+			$table->foreign('agent')->references('id')->on('core_platform_user');
+		});
 	}
 
 	/**
@@ -72,7 +88,8 @@ class CreateItemTable extends Migration {
 	 */
 	public function down()
 	{
-		
+	
+		Schema::drop('core_item_bom');	
 		Schema::drop('core_item_attr');
 		Schema::drop('core_item_master');
 		Schema::drop('core_item_category');
