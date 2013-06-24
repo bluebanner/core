@@ -2,7 +2,10 @@
 
 use Mockery as m;
 
-class ItemTest extends PHPUnit_Framework_TestCase
+use Illuminate\Support\Facades\Event;
+use Bluebanner\Core\ItemService;
+
+class ItemTest extends TestCase
 {
 	
 	public function tearDown()
@@ -10,13 +13,21 @@ class ItemTest extends PHPUnit_Framework_TestCase
 		m::close();
 	}
 	
-	public function testItemCanAdd()
+	public function testItemitemCreateRun()
 	{
-		$item = $this->getItem();
+		
+		// $mock = m::mock('ItemService');
+		// $mock->shouldReceive('exists')->once()->with('100-000-01')->andReturn(false);
+		// $event = m::mock('Illuminate\Support\Facades\Event');
+		// $event->shouldReceive('fire')->once()->with(array('sku' => '100-000-01'));
+		
+		$service = $this->getItemService();		
+		$this->assertEquals(false, $service->itemCreate(array('sku' => '100-000-01')));
+
 	}
 	
-	protected function getItem()
+	protected function getItemService()
 	{
-		return new Bluebanner\Core\Model\Item;
+		return new ItemService();
 	}
 }

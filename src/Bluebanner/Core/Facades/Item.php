@@ -6,5 +6,5 @@ class Item extends Facade
 {
 	
 	protected static function getFacadeAccessor()	{ return 'item'; }
-
+	
 }

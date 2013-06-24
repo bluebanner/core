@@ -30,7 +30,7 @@ class CoreServiceProvider extends ServiceProvider {
 		});
 		
 		$this->app['item'] = $this->app->share(function($app) {
-			return new Item;
+			return new ItemService;
 		});
 		
 		$this->app['inventory'] = $this->app->share(function($app) {
