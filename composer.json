@@ -11,17 +11,15 @@
     ],
     "require": {
       "php": ">=5.3.0",
-      "illuminate/support": "4.0.x",
-      "illuminate/database": "4.0.x",
-      "Illuminate/auth": "4.0.x"
+      "laravel/framework": "4.0.*"
     },
     "require-dev": {
-        "mockery/mockery": "0.7.2",
-        "orchestra/testbench": "2.0.*"
+        "mockery/mockery": "0.7.2"
     },
     "autoload": {
         "classmap": [
-            "src/migrations"
+            "src/migrations",
+            "tests/TestCase.php"
         ],
         "psr-0": {
             "Bluebanner\\Core": "src/"

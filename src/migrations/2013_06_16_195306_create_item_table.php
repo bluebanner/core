@@ -18,7 +18,7 @@ class CreateItemTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			
-			$table->string('name', 150);
+			$table->string('name', 150)->unique();
 			
 		});
 		
@@ -28,7 +28,7 @@ class CreateItemTable extends Migration {
 			$table->timestamps();
 			$table->softDeletes();
 			
-			$table->string('sku', 30);
+			$table->string('sku', 30)->unique();
 			$table->text('description');
 			$table->integer('category_id')->unsigned();
 			$table->decimal('length', 7, 1)->nullable();
