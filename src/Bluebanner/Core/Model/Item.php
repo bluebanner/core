@@ -8,6 +8,8 @@ class Item extends Eloquent
 	
 	protected $table = 'core_item_master';
 	
+	protected $guarded = array('id');
+	
 	protected $softDelete = true;
 	
 	public function scopeActive($query)
