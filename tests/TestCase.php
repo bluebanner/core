@@ -144,12 +144,17 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase {
 	
 	protected function getPackageAliases()
 	{
-		return array();
+		return array(
+			'Storage' =>	'Bluebanner\Core\Facades\Storage',
+			'Item' =>	'Bluebanner\Core\Facades\Item',
+			'Inventory' => 'Bluebanner\Core\Facades\Inventory',
+			'Core' => 'Bluebanner\Core\Facades\Core',
+		);
 	}
 	
 	protected function getPackageProviders()
 	{
-		return array();
+		return array('Bluebanner\Core\CoreServiceProvider');
 	}
 
 }

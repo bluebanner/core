@@ -2,8 +2,6 @@
 
 use Mockery as m;
 
-use Bluebanner\Core\ItemService;
-
 class ItemTest extends TestCase
 {
 	
@@ -19,7 +17,6 @@ class ItemTest extends TestCase
 	{
 		parent::setUp();
 		Bluebanner\Core\Model\Category::create(array('name' => 'testing name'));
-		$this->service = $this->getItemService();
 	}
 	
 	public function tearDown()
@@ -37,55 +34,55 @@ class ItemTest extends TestCase
 		$sku = $this->sku;
 		$skuArray = $this->skuArray;
 		
-		$this->assertEquals(false, $this->service->exists($sku));
-		$this->assertEquals(0, $this->service->itemRemove($sku));
-		$this->assertInstanceOf('Bluebanner\Core\Model\Item', $this->service->itemCreate($skuArray));
-		$this->assertEquals(true, $this->service->exists($sku));
+		$this->assertEquals(false, Item::exists($sku));
+		$this->assertEquals(0, Item::itemRemove($sku));
+		$this->assertInstanceOf('Bluebanner\Core\Model\Item', Item::itemCreate($skuArray));
+		$this->assertEquals(true, Item::exists($sku));
 		
-		$this->assertEquals(1, $this->service->itemRemove($sku));
-		$this->assertEquals(false, $this->service->exists($sku));
+		$this->assertEquals(1, Item::itemRemove($sku));
+		$this->assertEquals(false, Item::exists($sku));
 		
 		// throw ItemDuplicateException
-		$this->service->itemCreate($skuArray);
+		Item::itemCreate($skuArray);
 	}
 	
 	public function testCanFinding()
 	{
-		$item = $this->service->itemCreate($this->skuArray);
+		$item = Item::itemCreate($this->skuArray);
 		$this->assertEquals($this->sku, $item->sku);
 		$this->assertEquals(1, $item->category->id);
 		
-		$result = $this->service->find($item->id);
+		$result = Item::find($item->id);
 		$this->assertEquals($this->sku, $result->sku);
 		$this->assertEquals(1, $result->category->id);
 		
-		$anotherResult = $this->service->findBySku($this->sku);
+		$anotherResult = Item::findBySku($this->sku);
 		$this->assertEquals($this->sku, $anotherResult->sku);
 		$this->assertEquals(1, $anotherResult->category->id);
 	}
 	
 	public function testCanListing()
 	{
-		$this->service->itemCreate($this->skuArray);
-		$this->service->itemCreate($this->skuArray_1);
+		Item::itemCreate($this->skuArray);
+		Item::itemCreate($this->skuArray_1);
 		
-		$items = $this->service->all()->get();
+		$items = Item::all()->get();
 		
 		$this->assertEquals(2, count($items));
-		$this->assertEquals(2, count($this->service->allByCategory(1)->get()));
-		$this->assertEquals(0, count($this->service->allByCategory(2)->get()));
+		$this->assertEquals(2, count(Item::allByCategory(1)->get()));
+		$this->assertEquals(0, count(Item::allByCategory(2)->get()));
 	}
 	
 
 	public function testCanModify()
 	{
-		$item = $this->service->itemCreate($this->skuArray);
-		$this->assertInstanceOf('Bluebanner\Core\Model\Item', $this->service->findBySku($this->sku));
+		$item = Item::itemCreate($this->skuArray);
+		$this->assertInstanceOf('Bluebanner\Core\Model\Item', Item::findBySku($this->sku));
 		
-		$this->service->itemUpdate(array_merge(array('id' => $item->id), $this->skuArray_1));
+		Item::itemUpdate(array_merge(array('id' => $item->id), $this->skuArray_1));
 
-		$this->assertEquals('', $this->service->findBySku($this->sku));
-		$this->assertInstanceOf('Bluebanner\Core\Model\Item', $this->service->findBySku($this->sku_1));
+		$this->assertEquals('', Item::findBySku($this->sku));
+		$this->assertInstanceOf('Bluebanner\Core\Model\Item', Item::findBySku($this->sku_1));
 	}
 	
 	/**
@@ -93,7 +90,7 @@ class ItemTest extends TestCase
 	 */
 	public function testModifyThrowNonId()
 	{
-		$this->service->itemUpdate($this->skuArray);
+		Item::itemUpdate($this->skuArray);
 	}
 	
 	/**
@@ -101,7 +98,7 @@ class ItemTest extends TestCase
 	 */
 	public function testModifyThrowNotFound()
 	{
-		$this->service->itemUpdate(array_merge(array('id' => 1), $this->skuArray));
+		Item::itemUpdate(array_merge(array('id' => 1), $this->skuArray));
 	}
 	
 	/**
@@ -109,9 +106,9 @@ class ItemTest extends TestCase
 	 */
 	public function testModifyThrowDuplicate()
 	{
-		$this->service->itemCreate($this->skuArray);
-		$this->service->itemCreate($this->skuArray_1);
-		$this->service->itemUpdate(array_merge(array('id' => 1), $this->skuArray_1));
+		Item::itemCreate($this->skuArray);
+		Item::itemCreate($this->skuArray_1);
+		Item::itemUpdate(array_merge(array('id' => 1), $this->skuArray_1));
 	}
 	
 	public function testCanRemove()
@@ -119,19 +116,19 @@ class ItemTest extends TestCase
 		Event::shouldReceive('fire')->once()->with('item.create', $this->skuArray);
 		Event::shouldReceive('fire')->once()->with('item.remove', $this->sku);
 		
-		$item = $this->service->itemCreate($this->skuArray);
-		$this->service->itemRemove($this->sku);
+		$item = Item::itemCreate($this->skuArray);
+		Item::itemRemove($this->sku);
 	}
 	
 	public function testCategoryCanCreate()
 	{
-		$cate = $this->service->categoryCreate('testing name1');
+		$cate = Item::categoryCreate('testing name1');
 		$this->assertInstanceOf('Bluebanner\Core\Model\Category', $cate);
 	}
 	
 	public function testCategoryCanRemove()
 	{
-		$this->assertEquals(true, $this->service->categoryRemove(1));
+		$this->assertEquals(true, Item::categoryRemove(1));
 	}
 	
 	/**
@@ -139,7 +136,7 @@ class ItemTest extends TestCase
 	 */
 	public function testCategoryCanCreateThrowNotFound($value='')
 	{
-		$this->assertEquals(true, $this->service->categoryRemove(100));
+		$this->assertEquals(true, Item::categoryRemove(100));
 	}
 	
 	/**
@@ -147,12 +144,7 @@ class ItemTest extends TestCase
 	 */
 	public function testCategoryCanCreateThrowDuplicate()
 	{
-		$cate = $this->service->categoryCreate('testing name');
+		$cate = Item::categoryCreate('testing name');
 	}
 
-	
-	protected function getItemService()
-	{
-		return new ItemService();
-	}
 }

@@ -26,7 +26,7 @@ class CoreServiceProvider extends ServiceProvider {
 	public function register()
 	{
 		$this->app['core'] = $this->app->share(function($app) {
-			return new Core;
+			return new CoreService;
 		});
 		
 		$this->app['item'] = $this->app->share(function($app) {
@@ -34,11 +34,11 @@ class CoreServiceProvider extends ServiceProvider {
 		});
 		
 		$this->app['inventory'] = $this->app->share(function($app) {
-			return new Inventory;
+			return new InventoryService;
 		});
 		
 		$this->app['storage'] = $this->app->share(function($app) {
-			return new Storage;
+			return new StorageService;
 		});
 	}
 
