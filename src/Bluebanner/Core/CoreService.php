@@ -6,6 +6,9 @@ use Bluebanner\Core\Model\Role;
 use Bluebanner\Core\Model\User;
 
 class CoreException extends \Exception {}
+class PlatformNotFoundException extends \Exception {}
+class AccountNotFoundException extends \Exception {}
+class AccountArgumentsException extends \Exception {}
 
 class CoreService
 {
@@ -40,6 +43,27 @@ class CoreService
 		return Platform::where('abbreviation', '=', $abbr)->first();
 	}
 	
+	public function platformAdd($array)
+	{
+		return Platform::create($array);
+	}
+	
+	public function platformUpdate($array)
+	{
+		if (!array_key_exists('id', $array) || !$platform = Platform::find($array['id']))
+			throw new PlatformNotFoundException("the platform with ID {$array['id']} not found!");
+		
+		return $platform->update($array);
+	}
+	
+	public function platformRemove($id)
+	{
+		if (!$platform = Platform::find($id))
+			throw new PlatformNotFoundException("the platform with ID {$id} not found!");
+
+		return $platform->delete();
+	}
+	
 	public function accountList()
 	{
 		return Account::all();
@@ -63,6 +87,30 @@ class CoreService
 	public function accountFindByAbbr($abbr)
 	{
 		return Account::where('abbreviation', '=', $abbr)->first();
+	}
+	
+	public function accountAdd($array)
+	{
+		if (!array_key_exists('platform_id', $array))
+			throw new AccountArgumentsException('should offer a platform id to create a Account');
+
+		return Account::create($array);
+	}
+	
+	public function accountUpdate($array)
+	{
+		if (!array_key_exists('id', $array) || !$account = Account::find($array['id']))
+			throw new AccountNotFoundException("account with ID {$array['id']} not found");
+
+		return $account->update($array);
+	}
+	
+	public function accountRemove($id)
+	{
+		if (!$account = Account::find($id))
+			throw new AccountNotFoundException("account with ID {$id} not found");
+			
+		return $account->delete();
 	}
 	
 	public function roleList()

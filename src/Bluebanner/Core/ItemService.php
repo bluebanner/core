@@ -52,7 +52,7 @@ class ItemService
 	{
 		Event::fire('item.create', $array);
 
-		if (!array_key_exists('sku', $array) || !array_key_exists('category_id', $array))
+		if ( ! array_key_exists('sku', $array) || ! array_key_exists('category_id', $array))
 			throw new ItemArgumentsException('SKU and category_id are both required!');
 
 		if (Item::withTrashed()->where('sku', '=', $array['sku'])->count())
@@ -65,13 +65,13 @@ class ItemService
 	{
 		Event::fire('item.update', $array);
 		
-		if (!array_key_exists('id', $array))
+		if ( ! array_key_exists('id', $array))
 			throw new ItemArgumentsException("the attribute ID should in array for update");
 		
-		if (!$item = Item::find($array['id']))
+		if ( ! $item = Item::find($array['id']))
 			throw new ItemNotFoundException("can not found the item by ID[{$array['id']}]");
 			
-		if (array_key_exists('sku', $array) && $item->sku != $array['sku'] && Item::withTrashed()->where('sku', '=', $array['sku'])->count())
+		if (array_key_exists('sku', $array) && $item->sku ! = $array['sku'] && Item::withTrashed()->where('sku', '=', $array['sku'])->count())
 			throw new ItemDuplicateException("try to change the attribute SKU to an existed SKU {$array['sku']}");
 		
 		$item->update($array);
@@ -107,7 +107,7 @@ class ItemService
 		if (Item::where('category_id', '=', $cid)->count())
 			throw new ItemCategoryException('make sure the item list of this cate was empty');
 			
-		if (!$item = Category::find($cid))
+		if ( ! $item = Category::find($cid))
 			throw new ItemNotFoundException("can not found the category '{$cid}'!");
 			
 		return $item->delete();

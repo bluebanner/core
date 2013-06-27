@@ -11,7 +11,6 @@ class CoreTest extends TestCase
 	
 	public function testBasicSeedResult()
 	{
-		$this->assertTrue(true);
 		$this->assertEquals(2, Core::platformList()->count());
 		$this->assertEquals(2, Core::accountList()->count());
 		$this->assertEquals(1, Core::accountListByPlatform(1)->count());
@@ -31,5 +30,21 @@ class CoreTest extends TestCase
 		
 		$this->assertInstanceOf('Bluebanner\Core\Model\User', Core::userFind(1));
 		$this->assertInstanceOf('Bluebanner\Core\Model\User', Core::userFindByUsername('admin'));
+	}
+	
+	public function testPlatformCRUD()
+	{
+		$this->assertInstanceOf('Bluebanner\Core\Model\Platform', $platform = Core::platformAdd(array('name' => 'test platform', 'abbreviation' => 'TEST')));
+		$this->assertTrue(Core::platformUpdate(array('id' => $platform->id, 'name' => 'test platform update')));
+		$this->assertEquals('TEST', $platform->abbreviation);
+		$this->assertTrue(Core::platformRemove($platform->id));
+	}
+	
+	public function testAccountCRUD()
+	{
+		$this->assertInstanceOf('Bluebanner\Core\Model\Account', $platform = Core::AccountAdd(array('platform_id' => 1, 'name' => 'test account', 'abbreviation' => 'TEST')));
+		$this->assertTrue(Core::accountUpdate(array('id' => $platform->id, 'name' => 'test account update')));
+		$this->assertEquals('TEST', $platform->abbreviation);
+		$this->assertTrue(Core::accountRemove($platform->id));
 	}
 }
