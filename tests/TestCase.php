@@ -149,6 +149,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase {
 			'Item' =>	'Bluebanner\Core\Facades\Item',
 			'Inventory' => 'Bluebanner\Core\Facades\Inventory',
 			'Core' => 'Bluebanner\Core\Facades\Core',
+			'Purchase' => 'Bluebanner\Core\Facades\Purchase',
 		);
 	}
 	

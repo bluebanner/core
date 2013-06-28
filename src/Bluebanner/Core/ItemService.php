@@ -71,7 +71,7 @@ class ItemService
 		if ( ! $item = Item::find($array['id']))
 			throw new ItemNotFoundException("can not found the item by ID[{$array['id']}]");
 			
-		if (array_key_exists('sku', $array) && $item->sku ! = $array['sku'] && Item::withTrashed()->where('sku', '=', $array['sku'])->count())
+		if (array_key_exists('sku', $array) && $item->sku != $array['sku'] && Item::withTrashed()->where('sku', '=', $array['sku'])->count())
 			throw new ItemDuplicateException("try to change the attribute SKU to an existed SKU {$array['sku']}");
 		
 		$item->update($array);
