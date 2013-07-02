@@ -10,4 +10,14 @@ class PurchaseRequest extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public function agent()
+	{
+		return $this->belongsTo('Bluebanner\Core\Model\User');
+	}
+	
+	public function details()
+	{
+		return $this->hasMany('Bluebanner\Core\Model\PurchaseRequestDetail', 'request_id');
+	}
 }

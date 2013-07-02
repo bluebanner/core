@@ -1,14 +1,16 @@
-<?php namespace Bluebaner\Core\Purchase;
+<?php namespace Bluebanner\Core\Purchase;
 
 class PRStatus
 {
 
-	const PENDING = 1;
+	const PENDING = 'pending';
 	
-	const COLLECTING = 2;
+	const COLLECTING = 'collecting';
 	
-	const CONFIRMED = 3;
+	const CONFIRMED = 'confirmed';
 	
-	const CLOSED = 4;
+	const FROZEN = 'frozen';
+	
+	const CLOSED = 'closed';
 
 }
