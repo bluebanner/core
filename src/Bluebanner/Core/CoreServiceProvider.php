@@ -44,6 +44,10 @@ class CoreServiceProvider extends ServiceProvider {
 		$this->app['purchase'] = $this->app->share(function($app) {
 			return new PurchaseService;
 		});
+		
+		$this->app['vendor'] = $this->app->share(function($app) {
+			return new VendorService;
+		});
 	}
 
 	/**
@@ -53,7 +57,7 @@ class CoreServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array('auth', 'item', 'inventory', 'storage', 'purchase');
+		return array('auth', 'item', 'inventory', 'storage', 'purchase', 'vendor');
 	}
 
 }

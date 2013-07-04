@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class Role extends Eloquent
+class Role extends BaseModel
 {
 	
 	protected $table = 'core_platform_role';
@@ -10,4 +8,6 @@ class Role extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array();
 }

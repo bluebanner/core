@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class VendorQuotation extends Eloquent
+class VendorQuotation extends BaseModel
 {
 	
 	protected $table = 'core_purchase_vendor_quotation';
@@ -10,6 +8,11 @@ class VendorQuotation extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'vendor_id' => 'required|integer',
+		'item_id' => 'required|integer'
+	);
 	
 	public function vendor()
 	{

@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class Platform extends Eloquent
+class Platform extends BaseModel
 {
 	
 	protected $table = 'core_platform_master';
@@ -10,4 +8,8 @@ class Platform extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'name' => 'required|unique:core_platform_master',
+	);
 }

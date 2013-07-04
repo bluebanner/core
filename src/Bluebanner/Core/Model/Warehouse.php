@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class Warehouse extends Eloquent
+class Warehouse extends BaseModel
 {
 	
 	protected $table = 'core_storage_warehouse';
@@ -10,5 +8,7 @@ class Warehouse extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array();
 	
 }

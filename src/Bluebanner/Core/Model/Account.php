@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class Account extends Eloquent
+class Account extends BaseModel
 {
 	
 	protected $table = 'core_platform_account';
@@ -10,6 +8,11 @@ class Account extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'platform_id' => 'required|integer',
+		'name' => 'required|unique:core_platform_account',
+	);
 	
 	public function platform()
 	{

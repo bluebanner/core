@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class PurchaseRequestDetail extends Eloquent
+class PurchaseRequestDetail extends BaseModel
 {
 	
 	protected $touches = array('request');
@@ -12,6 +10,13 @@ class PurchaseRequestDetail extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'warehouse_id' => 'required|integer',
+		'request_id' => 'required|integer',
+		'item_id' => 'required|integer',
+		'vendor_id' => 'required|integer',
+	);
 	
 	public function warehouse()
 	{

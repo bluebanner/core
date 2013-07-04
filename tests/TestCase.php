@@ -150,12 +150,29 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase {
 			'Inventory' => 'Bluebanner\Core\Facades\Inventory',
 			'Core' => 'Bluebanner\Core\Facades\Core',
 			'Purchase' => 'Bluebanner\Core\Facades\Purchase',
+			'Vendor' => 'Bluebanner\Core\Facades\Vendor',
 		);
 	}
 	
 	protected function getPackageProviders()
 	{
 		return array('Bluebanner\Core\CoreServiceProvider');
+	}
+	
+	public function assertValid($model)
+	{
+		$this->assertTrue(
+			$model->validate(),
+			'Model did not pass validation.'
+		);
+	}
+	
+	public function assertNotValid($model)
+	{
+		$this->assertFalse(
+			$model->validate(),
+			'Did not expect model to pass validation.'
+		);
 	}
 
 }

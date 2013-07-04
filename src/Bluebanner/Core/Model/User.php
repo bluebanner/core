@@ -1,10 +1,9 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
 use Illuminate\Auth\UserInterface;
 use Illuminate\Auth\Reminders\RemindableInterface;
 
-class User extends Eloquent implements UserInterface, RemindableInterface {
+class User extends BaseModel implements UserInterface, RemindableInterface {
 
 	/**
 	 * The database table used by the model.
@@ -16,6 +15,11 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 	protected $guarded = array('id', 'password');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'username' => 'required|unique:core_platform_user',
+		'role_id' => 'required|integer',
+	);
 
 	/**
 	 * The attributes excluded from the model's JSON form.

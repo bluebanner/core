@@ -1,8 +1,6 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-
-class PurchaseRequest extends Eloquent
+class PurchaseRequest extends BaseModel
 {
 	
 	protected $table = 'core_purchase_request';
@@ -10,6 +8,11 @@ class PurchaseRequest extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'invoice' => 'required|unique:core_purchase_request',
+		'agent' => 'required|integer'
+	);
 	
 	public function agent()
 	{

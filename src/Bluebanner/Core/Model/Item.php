@@ -1,9 +1,8 @@
 <?php namespace Bluebanner\Core\Model;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
 use Bluebanner\Core\Model\Category;
 
-class Item extends Eloquent
+class Item extends BaseModel
 {
 	
 	protected $table = 'core_item_master';
@@ -11,6 +10,11 @@ class Item extends Eloquent
 	protected $guarded = array('id');
 	
 	protected $softDelete = true;
+	
+	public $rules = array(
+		'sku' => 'required|unique:core_item_master',
+		'category_id' => 'required|integer|unique:core_item_master'
+	);
 	
 	public function scopeActive($query)
 	{
