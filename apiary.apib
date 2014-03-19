@@ -1,0 +1,75 @@
+FORMAT: 1A
+HOST: http://erp.test.hisgadget.com
+
+# Blue Banner Core API
+欢迎来到 **蓝帜ERP2.0** 核心类库API
+
+## Description Of Usual Server Responses
+- 200 OK - the request was successful (some API calls may return 201 instead).
+- 201 Created - the request was successful and a resource was created.
+- 204 No Content - the request was successful but there is no representation to return (i.e. the response is empty).
+- 400 Bad Request - the request could not be understood or was missing required parameters.
+- 401 Unauthorized - authentication failed or user doesn't have permissions for requested operation.
+- 403 Forbidden - access denied.
+- 404 Not Found - resource was not found.
+- 405 Method Not Allowed - requested method is not supported for resource.
+- 429 Too Many Requests - exceeded GoodData API limits. Pause requests, wait up to one minute, and try again.
+- 503 Service Unavailable - service is temporary unavailable (e.g. scheduled Platform Maintenance). Try again later.
+
+# Group 基础信息
+
+# Group 申购模块
+* 申购单建立、审核
+* 申购单
+
+### PR Properties
+- id
+- agent (int) 创建者
+- warehouse_id (int) 
+- invoice (string)
+- status (string)
+- type (string)
+
+### PR Details Properties
+- request_id (int) PR id
+- platform_id (int) 平台ID
+- item_id (int) SKU ID
+- qty (int) Request Quantity
+- end_date (date) ETA
+- transportation (string) surface|air|sea|N/A
+
+## 申购单 [/api/purchase/request/{invoice}/{sku}]
+### 申购单列表 [GET]
++ Parameters
+
+    + invoice (int) ... 申购单`invoice`
+    + sku (string) ... 申购单所包含之SKU
+
++ Response 200 (application/json)
+
+    + Body
+    
+            [{id: 1, agent: 2, agent_name: '张三' warehouse_id: 1, warehouse_name: '深圳仓' invoice: 'PR14022501', status, 'verified', type: 'shipment'},
+            {id: 2, agent: 2, agent_name: '张三' warehouse_id: 1, warehouse_name: '深圳仓' invoice: 'PR14022502', status, 'completed', type: 'shipment'},
+            {id: 3, agent: 2, agent_name: '张三' warehouse_id: 1, warehouse_name: '深圳仓' invoice: 'PR14022503', status, 'pending', type: 'shipment'}]
+
+
+## 申购单明细 [/api/purchase/request/{id}]
+### 获取申购单明细 [GET]
++ Parameters
+
+    + id (int, required) ... 申购单`id`
+
++ Response 200
+
+            [申购单][]
+
+### 新建申购单 [POST]
++ Request (application/json)
+
+            [申购单][]
+
++ Response 200 (application/json)
+
+            [申购单][]
+
